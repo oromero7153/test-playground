@@ -1,8 +1,40 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { fireEvent, render, screen } from "@testing-library/react"
+import App from "./App"
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe('test for header', () => {
+  test(" header renders with correct text", () => {
+    render(<App />);
+    const headerEl = screen.getByRole("heading")
+    expect(headerEl.textContent).toBe("Testing Playground")
+  });
+})
+
+describe('test for the button', () => {
+  test('button changes color and text when clicked', () => {
+    render(<App />);
+    const buttonEl = screen.getByRole('button')
+    expect(buttonEl).toHaveStyle('background-color: green')
+    expect(buttonEl.textContent).toBe('Change button color to blue')
+
+    fireEvent.click(buttonEl)
+
+    expect(buttonEl).toHaveStyle('background-color: blue')
+    expect(buttonEl.textContent).toBe('Change button color to green')
+  });
+})
+
+describe('test for the checkbox', () => {
+  test('checkbox disables the button first click and enables the button on second click', () => {
+    render(<App />)
+    const checkboxEl = screen.getByRole('checkbox')
+    const buttonEl = screen.getByRole('button')
+
+    fireEvent.click(checkboxEl)
+
+    expect(buttonEl).toBeDisabled()
+
+    fireEvent.click(checkboxEl)
+
+    expect(buttonEl).toBeEnabled()
+  });
+})
