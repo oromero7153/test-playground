@@ -10,6 +10,7 @@ function App() {
   return (
     <div className="App">
       <h1>Testing Playground</h1>
+      <p role='paragraph'>Button is {inputDisabled ? 'disabled': 'enabled'}</p>
       <button 
       style={{backgroundColor: btnColor}}
       onClick={() => setBtnColor(newBtnColor)}

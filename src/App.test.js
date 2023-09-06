@@ -38,3 +38,16 @@ describe('test for the checkbox', () => {
     expect(buttonEl).toBeEnabled()
   });
 })
+describe('test for the text', () => {
+  test('paragraph text correctly reflects the disabled state of the button', () => {
+    render(<App />)
+    const paragraphEl = screen.getByRole('paragraph')
+    const checkboxEl = screen.getByRole('checkbox')
+
+    expect(paragraphEl.textContent).toBe('Button is enabled')
+   
+    fireEvent.click(checkboxEl)
+
+    expect(paragraphEl.textContent).toBe('Button is disabled')
+  });
+})
